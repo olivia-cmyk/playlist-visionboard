@@ -5,11 +5,8 @@ import urllib.parse, urllib.request, urllib.error, json
 from tkinter import *
 import random
 
-from google_images_search import GoogleImagesSearch
 gapi = keys.google_api_key
 cx = keys.google_project_cx
-gis = GoogleImagesSearch(gapi, cx)
-
 
 # -----FUNCTIONS-----
 

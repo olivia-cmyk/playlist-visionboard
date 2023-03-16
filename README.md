@@ -1,6 +1,7 @@
 # playlist-visionboard
 HCDE 310 Web Application 
 
+VIDEO: https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e675f19f-f3fd-4344-8c56-afc700aaa30c
 http://yaushi20.pythonanywhere.com/
 
 IMPORTANT!
@@ -8,6 +9,10 @@ IMPORTANT!
 Please be patient.
 2. This code makes around 50 requests to the Google API, which has a default limit of 100 requests/day.
 I ended up having to make multiple projects with Google to test it :(
+
+To Install:
+1. pip install spotipy
+2. pip install azapi
 
 Steps in the process:
 1. Input playlist or album ID from Spotify.

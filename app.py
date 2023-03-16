@@ -1,7 +1,6 @@
 # -----IMPORTS-----
 import spotify as sp
 import googleimage as goo
-import time
 from flask import Flask, render_template, request
 
 # Use flask --debug run to run code
