@@ -1,56 +1,59 @@
+# -----IMPORTS-----
 import spotify as sp
-import google
-
+import googleimage as goo
+import time
 from flask import Flask, render_template, request
 
 # Use flask --debug run to run code
-# Create an instance of Flask
+
+# -----FLASK INSTANCE-----
 app = Flask(__name__)
 
 
-# Create a view function for /
-# Main page
-
+# -----MAIN PAGE VIEW FUNCTION /-----
 @app.route("/")
 def main():
     return render_template("base.html")
 
 
-# View for the loading screen /loading
-
+# -----LOADING PAGE VIEW FUNCTION /LOADING-----
 @app.route("/loading", methods=["GET", "POST"])
 def loading_page():
     if request.method == "POST":
         id = request.form["spotify id"]
         idtype = request.form["typeofid"]
+
+        # Album or Playlist?
         if idtype == "album":
             cwdict = sp.album_common_words(id)
-            cwtuplelist = sp.sort_words(cwdict)
-            cwlist = sp.keywords_to_list(cwtuplelist)
-            return cwlist
         elif idtype == "playlist":
             cwdict = sp.playlist_common_words(id)
-            cwtuplelist = sp.sort_words(cwdict)
-            cwlist = sp.keywords_to_list(cwtuplelist)
-            return cwlist
+
+        # Incase the ID is wrong:
+        if cwdict is None:
+            return render_template("invalid.html")
+
+        cwtuplelist = sp.sort_words(cwdict)
+        cwlist = sp.keywords_to_list(cwtuplelist)
+        return render_template("loading.html", cwlist=cwlist)
     else:
-        return "wrong HTTP request"
+        return "Wrong HTTP Request. Try again here: http://yaushi20.pythonanywhere.com/"
 
-# Create a view function for /results
 
-# @app.route("/results", methods=["GET", "POST"])
-# def submit_page():
-#     if request.method == "POST":
-#         place = request.form["place"]
-#         max_results = int(request.form["max_results"])
-#         radius = float(request.form["radius"])
-#         if "sort" in request.form:
-#             sort = True
-#         else:
-#             sort = False
-#         listobjects = functions.wikipedia_locationsearch(place, max_results, radius, sort)
-#         # return [place, max_results, radius, sort]
-#         # return listobjects
-#         return render_template("results.html", listobjects=listobjects, place=place)
-#     else:
-#         return "Wrong HTTP Method"
+# -----COLLAGE PAGE VIEW FUNCTION /IMAGES-----
+@app.route("/images", methods=["GET", "POST"])
+def collage_page():
+    if request.method == "POST":
+        keywordlist = goo.csvtolist()
+
+        # Generate links to images
+        goo.clear_links()  # Clear imagelinks.csv 
+        print("Cleared Links")
+        goo.images_based_on_list(keywordlist)
+
+        urllist = goo.csvtolist("imagelinks.csv")
+        randw = goo.randomnumberw(50)
+        randh = goo.randomnumberh(50)
+        return render_template("images.html", urllist=urllist, randw=randw, randh=randh)
+    else:
+        return "Wrong HTTP Request. Try again here: http://yaushi20.pythonanywhere.com/"

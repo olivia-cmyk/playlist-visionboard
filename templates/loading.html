@@ -4,16 +4,13 @@
     <body id="content-wrapper">
         <h1>Welcome to Playlist Visionboard</h1>
         <h2>
-            <ul>
-                {% if cwlist|length%}
-                    {% for word in cwlist %}
-                    <li> <p>{{word}}</p>
-                    </li>
-                    {% endfor %}
-                {% else %}
-                    <h3>Error: No results found for the search query.</h3>
-                {% endif %}
-            </ul>
+            <p>This is the list of repeated words in this album/playlist.</p>
+            <p>{{cwlist}}</p>
+            <p>
+                <form action="/images" method="post">
+                    <p><input type="submit" value="Continue" style="font-family:monospace;"></p>
+                </form>
+            </p>
         </h2>
     </body>
     <footer>Olivia Yau HCDE 310 Project</footer>

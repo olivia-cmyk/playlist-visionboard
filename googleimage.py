@@ -1,7 +1,9 @@
 # -----IMPORTS-----
-import spotify
 import keys
+import time
 import urllib.parse, urllib.request, urllib.error, json
+from tkinter import *
+import random
 
 from google_images_search import GoogleImagesSearch
 gapi = keys.google_api_key
@@ -20,9 +22,13 @@ def get_an_image(q, num=1, offset=1, filename="imagelinks.csv"):
     baseurl = "https://customsearch.googleapis.com/customsearch/v1"
     request = "{}?{}".format(baseurl, paramstr)
     
-    with urllib.request.urlopen(request) as response:
-        response_str = response.read().decode()
-        response_json = json.loads(response_str)
+    try:
+        with urllib.request.urlopen(request) as response:
+            response_str = response.read().decode()
+            response_json = json.loads(response_str)
+    except urllib.error.HTTPError:
+        print("Too Many Requests to Google API. Limit Reached")
+        return None
 
     with open(filename, "a", encoding="utf-8") as f:
         for picnumber in range(num):
@@ -47,13 +53,41 @@ def images_based_on_list(keywordlist, filename="imagelinks.csv", vibe=""):
     Returns: None, writes linkes of images into filename
     """
     for word in keywordlist:
-        aestheticword = "aesthetic pinterest {} {}".format(word, vibe)
+        aestheticword = "{} aesthetic pinterest {}".format(word, vibe)
         get_an_image(aestheticword, filename=filename)
+        time.sleep(1)
 
     return None
 
 
-def main():
-    x = ["love", "falling", "haze", "karma", "wanted"]
-    clear_links()
-    images_based_on_list(x, vibe="pink")
+def csvtolist(filename="listofkeywords.csv"):
+    if type(filename) != str:
+        return None
+    keylist = []
+    with open(filename, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip("\n")
+            keylist.append(line)
+    return keylist
+
+
+def randomnumberw(num):
+    win = Tk()
+    width = win.winfo_screenwidth()
+
+    randlist = []
+    for number in range(num):
+        x = random.randint(0, (width - 200))
+        randlist.append(x)
+    return randlist
+
+
+def randomnumberh(num):
+    win = Tk()
+    height = win.winfo_screenheight()
+
+    randlist = []
+    for number in range(num):
+        x = random.randint(0, (height - 200))
+        randlist.append(x)
+    return randlist

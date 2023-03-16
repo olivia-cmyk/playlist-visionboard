@@ -2,6 +2,12 @@
 <html style="background-color: #FFE1DB;" id="page-container">
     <link href="/static/styles/style.css" rel="stylesheet">
     <body id="content-wrapper">
-        <h1>Welcome to Playlist Visionboard</h1>
+        <div class="gallery">
+            {% for url in urllist%}
+            <img src={{url}} style="max-width: 200px; position: absolute;
+            left: {{randw[urllist.index(url)]}}px; top: {{randh[urllist.index(url)]}}px">
+            {% endfor %}
+        </div>
+        
     </body>
 </html>

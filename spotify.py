@@ -116,7 +116,7 @@ def strip_lyrics(lyrics):
         print("No lyrics to strip")
         return ""
 
-    punctuation = [".", ",", '"', "-", "!", "'", "(", ")", "?", "’"]
+    punctuation = [".", ",", '"', "-", "!", "'", "(", ")", "?", "’", "..."]
     for mark in punctuation:
         lyrics = lyrics.replace(mark, "")
     lyrics = lyrics.replace("\n", " ").replace("  ", " ").lower()
