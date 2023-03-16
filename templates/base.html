@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html style="background-color: #FFE1DB;" id="page-container">
+    <link href="/static/styles/style.css" rel="stylesheet">
+    <body id="content-wrapper">
+        <h1>Welcome to Playlist Visionboard</h1>
+        <h2>
+            <form action="/loading" method="post">
+                <p>
+                    <label for="spoitfy id">Album or Playlist Spotify ID</label>
+                </p>
+                <p>
+                    <input type="text" id="spotify id" name="spotify id">
+                </p>
+                <p>
+                    <label for="typeofid">Is this an Album or a Playlist?</label>
+                </p>
+                <p>
+                    <input type="radio" id="album" name="typeofid">
+                    <label for="album">Album</label>
+                </p>
+                <p>
+                    <input type="radio" id="playlist" name="typeofid">
+                    <label for="playlist">Playlist</label>
+                </p>
+                <p><input type="submit" value="Submit" style="font-family:monospace;"></p>
+            </form>
+        </h2>
+    </body>
+    <footer>Olivia Yau HCDE 310 Project</footer>
+</html>

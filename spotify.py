@@ -1,10 +1,9 @@
 # -----IMPORTS-----
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-# from lyricsgenius import Genius
 import keys
 import pprint
-from azapi_mine import AZlyrics
+from azapi import AZlyrics
 
 # -----SETTING UP-----
 cid = keys.spotify_client_id
@@ -12,7 +11,6 @@ secret = keys.spotify_client_secret
 client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
 sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
 
-# genius = Genius(keys.genius_access_token)
 
 # -----FUNCTIONS-----
 
@@ -118,7 +116,7 @@ def strip_lyrics(lyrics):
         print("No lyrics to strip")
         return ""
 
-    punctuation = [".", ",", '"', "-", "!", "'", "(", ")", "?"]
+    punctuation = [".", ",", '"', "-", "!", "'", "(", ")", "?", "’"]
     for mark in punctuation:
         lyrics = lyrics.replace(mark, "")
     lyrics = lyrics.replace("\n", " ").replace("  ", " ").lower()
@@ -151,7 +149,7 @@ def no_common_words(strippedlyrics):
 
 def album_common_words(id):
     """Parameters: id = id of spotify album
-    Returns: 50 most common words in album"""
+    Returns: 50 most common words in album as a dictionary"""
     songslist = get_songs_album(id)
 
     if songslist is None:
@@ -177,7 +175,7 @@ def album_common_words(id):
 
 def playlist_common_words(id):
     """Parameters: id = id of spotify playlist
-    Returns: 50 most common words in playlist"""
+    Returns: 50 most common words in playlist as a dict."""
     songslist = get_songs_playlist(id)
 
     if songslist is None:
@@ -207,9 +205,32 @@ def sort_words(commonwordsdict):
     if type(commonwordsdict) != dict:
         print("Invalid Parameter, Not a Dictionary.")
         return None
+
     new = [(k, v) for k, v in sorted(sorted(commonwordsdict.items(), key=lambda x:x[1], reverse=True), key=len)]
     finaldict = new[:51]
     return finaldict
+
+
+def keywords_to_list(listoftuples):
+    """Parameters: dictionary of keywords from sort_words
+    Returnes: list of all the words, without their counts"""
+    if type(listoftuples) != list:
+        print("Invalid Parameter, must be a list.")
+        return None
+
+    keywords = []
+    for tup in listoftuples:
+        keywords.append(tup[0])
+
+    return keywords
+
+
+def listtocsv(listofkeywords, filename="listofkeywords.csv"):
+    if type(listofkeywords) != list:
+        return None
+    with open(filename, "w", encoding="utf-8") as f:
+        for word in listofkeywords:
+            f.write(word + "\n")
 
 
 def main():
@@ -248,10 +269,13 @@ def main():
     print("===== Testing playlist/album_common_words, sort_words function. =====")
     a = album_common_words("151w1FgRZfnKZA9FEcg9Z3")
     p = playlist_common_words("6OlO5RVqcA1sas9b7ztaqe")
-    print(sort_words(a))
+    asort = sort_words(a)
+    print(asort)
     print(sort_words(p))
     gib = album_common_words("gilskjdflka;j")
     print(sort_words(gib))
+
+    print(keywords_to_list(asort))
 
 
 if __name__ == "__main__":

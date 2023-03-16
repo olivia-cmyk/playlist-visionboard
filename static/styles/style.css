@@ -1,0 +1,53 @@
+h1 {
+    text-align: center;
+}
+
+h1 {
+    margin: auto;
+    width: 640px; 
+    padding: 150px 20px 20px 20px;
+    font-family: monospace; 
+    color: #37323E;    
+}
+h2 {
+    text-align: center;
+}
+h2 {
+    margin: auto;
+    width: 640px; 
+    padding: 20px;
+    font-family: monospace; 
+    color: #37323E;  
+}
+
+form [type="text"] {
+    color: #37323E;
+    font-family: monospace;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+  }
+
+#content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+  }
+  
+#footer {
+    align-content: center;
+    bottom: 0;
+    height: 2.5rem;            /* Footer height */
+}
+
+footer {
+    text-align: center;
+}
+footer {
+    margin: 0 auto;
+    width: 640px; 
+    padding: 30px;
+    font-family: monospace; 
+    color: #37323E;  
+}
+  
