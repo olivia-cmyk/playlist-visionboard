@@ -3,7 +3,10 @@ HCDE 310 Web Application
 
 VIDEO: https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e675f19f-f3fd-4344-8c56-afc700aaa30c
 
-PYTHONANYWHERE: http://yaushi20.pythonanywhere.com/
+PYTHONANYWHERE: This IS NOT fully functional yet because one of the APIs I used is not whitelisted by pythonanywhere.
+I have submitted a request but it may take time.
+The code does work locally. 
+http://yaushi20.pythonanywhere.com/
 
 IMPORTANT!
 1. Steps 2 and 3 (especially step 3) take a long time to load if there are lots of songs on the album or playlist.
