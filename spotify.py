@@ -101,7 +101,10 @@ def scrape_lyrics(artist, song):
         az.artist = artist
         az.title = song
         lyrics = az.getLyrics()  # save=True if lyrics save in txt file.
-
+        if lyrics == 2:
+            az.artist = song
+            az.title = artist
+            lyrics = az.getLyrics()
         print("Lyrics Successfully Scraped: {}, {}".format(az.artist, az.title))
         return lyrics
     except:
@@ -280,3 +283,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # album_common_words("5sY6UIQ32GqwMLAfSNEaXb")
